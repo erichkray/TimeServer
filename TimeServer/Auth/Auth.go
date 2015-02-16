@@ -8,14 +8,9 @@ package auth
 
 //import packages
 import (
-	//"fmt"
-	"github.com/TimeServer/CookieHandler"
-	"github.com/TimeServer/Utility"
+	"local/TimeServer/CookieHandler"
+	"local/TimeServer/Utility"
 	"net/http"
-	//"net/url"
-	//"os"
-	//"path/filepath"
-	//"strconv"
 )
 
 //global variable

@@ -8,6 +8,7 @@ package utility
 
 //import packages
 import (
+	"flag"
 	"fmt"
 	log "github.com/seelog"
 	"os"
@@ -20,14 +21,48 @@ type Page struct {
 	Title string
 	Body  []byte
 }
-
+//global variable
 var (
-	debug bool
-	Debug = func(setDebug bool) {
-		debug = setDebug
+	verbose *bool
+	port    *int
+	Port = func() int {
+		return *port
 	}
+	authPort *int
+	AuthPort = func() int{
+		return *authPort
+	}
+	debug   *bool
+	logstr     *string
 	logger log.LoggerInterface
 )
+
+func ParseFlags(version string){
+	//parse flag
+	verbose = flag.Bool("v", false, "a bool")
+	port = flag.Int("port", 8080, "port for webserver")
+	logstr = flag.String("log", "", "load location for seelog")	
+	debug = flag.Bool("debug", false, "turn optional for debug spew")
+	flag.Parse()
+	
+		//check if log was specified
+	if *logstr == "" {
+		WriteInfo("No log config xml loaded, outputing to console only.")
+	} else {
+
+		//load config file and check for errors
+		err := SetLogConfig(*logstr)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "%s\n", err)
+			os.Exit(1)
+		}
+	}
+	
+	if *verbose == true {
+	fmt.Println(version)
+		os.Exit(0)
+	}
+}
 
 func SetLogConfig(logConfigPath string) error {
 	logger, err := log.LoggerFromConfigAsFile(logConfigPath)
@@ -74,7 +109,7 @@ func UUIDCreator() (string, error) {
 
 //Function to print debug text to Stderr
 func printDebug(msg string) {
-	if debug {
+	if *debug {
 		fmt.Fprintf(os.Stderr, "Debug: %s\n", msg)
 	}
 }

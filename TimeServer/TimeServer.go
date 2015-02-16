@@ -1,17 +1,17 @@
 // Author: Erich Ray
 // Title: TimeServer
-// Version 3
+// Version 4
 // Created on 1/15/2015
-// Creates a web server for the url http://localhost:8080/
+// Creates a web server for the url http://localhost:<port>/
 package main
 
 //import packages
 import (
-	"flag"
+	//"flag"
 	"fmt"
-	"github.com/TimeServer/Auth"
-	"github.com/TimeServer/Utility"
-	"github.com/TimeServer/View"
+	"local/TimeServer/TimeServer/Auth"
+	"local/TimeServer/Utility"
+	"local/TimeServer/TimeServer/View"
 	"net/http"
 	"net/url"
 	"os"
@@ -19,55 +19,23 @@ import (
 	"time"
 )
 
-const version = "Version: 3"
-
-//global variable
-var (
-	verbose *bool
-	port    *int
-	debug   *bool
-	log     *string
-)
+const version = "Version: 4"
 
 //main function for Time Server
 func main() {
-	var err error
-
-	//parse flags
-	verbose = flag.Bool("v", false, "a bool")
-	port = flag.Int("port", 8080, "port for webserver")
-	log = flag.String("log", "", "load location for seelog")
-	debug = flag.Bool("debug", false, "turn optional for debug spew")
-	utility.Debug(*debug)
-	flag.Parse()
+	
+	//parse command flags
+	utility.ParseFlags(version)
 
 	//build template tree
 	view.CreateSite()
-
-	//check if log was specified
-	if *log == "" {
-		utility.WriteInfo("No log config xml loaded, outputing to console only.")
-	} else {
-
-		//load config file and check for errors
-		err = utility.SetLogConfig(*log)
-		if err != nil {
-			fmt.Fprintf(os.Stderr, "%s\n", err)
-			os.Exit(1)
-		}
-	}
 
 	//defer a flush for on quit
 	defer utility.FlushLog()
 
 	//print debug
 	utility.WriteTrace("Starting Main")
-
-	if *verbose == true {
-		fmt.Println(version)
-		os.Exit(0)
-	}
-
+	
 	//write version number to log
 	utility.WriteInfo(version)
 
@@ -77,10 +45,12 @@ func main() {
 	http.HandleFunc("/login/", loginHandler)
 	http.HandleFunc("/logout/", logoutHandler)
 	http.HandleFunc("/about/", aboutHandler)
+	http.HandleFunc("/set/", setHandler)
+	http.HandleFunc("/get/", getHandler)
 	http.Handle("/styles/", http.StripPrefix("/styles/", http.FileServer(http.Dir("styles/"))))
 
 	//set listen and serve for port, checking for error
-	err = http.ListenAndServe(":"+strconv.Itoa(*port), nil)
+	err := http.ListenAndServe(":"+strconv.Itoa(utility.Port()), nil)
 
 	//if error was returned, send error to standard output
 	if err != nil {
@@ -97,7 +67,7 @@ func aboutHandler(response http.ResponseWriter, request *http.Request) {
 
 	//create data structure
 	data := view.TimeData{
-		"", "", "",
+		"", "", "", strconv.Itoa(utility.Port()),
 	}
 
 	//execute template
@@ -124,14 +94,14 @@ func defaultHandler(response http.ResponseWriter, request *http.Request) {
 
 		name := auth.GetName(request)
 		if name == "" {
-			http.Redirect(response, request, "http://localhost:8080/login", http.StatusFound)
+			http.Redirect(response, request, "http://localhost:" + strconv.Itoa(utility.Port()) + "/login", http.StatusFound)
 		} else {
 			//debug text
 			utility.WriteTrace("Displaying greeting")
 
 			//create data structure
 			data := view.TimeData{
-				name, "", "",
+				name, "", "", strconv.Itoa(utility.Port()),
 			}
 
 			//execute template
@@ -158,7 +128,7 @@ func loginHandler(response http.ResponseWriter, request *http.Request) {
 	name := auth.GetName(request)
 	if name != "" {
 		//redirect to home page
-		http.Redirect(response, request, "http://localhost:8080/index", http.StatusFound)
+		http.Redirect(response, request, "http://localhost:" + strconv.Itoa(utility.Port()) + "/index", http.StatusFound)
 	} else {
 
 		//parse query from URL
@@ -185,7 +155,7 @@ func loginHandler(response http.ResponseWriter, request *http.Request) {
 				utility.WriteInfo("Cookie set")
 
 				//redirect to home page
-				http.Redirect(response, request, "http://localhost:8080/index", http.StatusFound)
+				http.Redirect(response, request, "http://localhost:" + strconv.Itoa(utility.Port()) + "/index", http.StatusFound)
 			}
 		} else {
 			//debug text
@@ -201,7 +171,7 @@ func loginHandler(response http.ResponseWriter, request *http.Request) {
 
 			//create data structure
 			data := view.TimeData{
-				"", message, "",
+				"", message, "", strconv.Itoa(utility.Port()),
 			}
 
 			//execute template
@@ -225,7 +195,7 @@ func logoutHandler(response http.ResponseWriter, request *http.Request) {
 
 	//create data structure
 	data := view.TimeData{
-		"", "", "",
+		"", "", "", strconv.Itoa(utility.Port()),
 	}
 
 	//the message "Good-bye." is displayed for 10 seconds
@@ -254,7 +224,7 @@ func timeHandler(response http.ResponseWriter, request *http.Request) {
 
 	//create data structure
 	data := view.TimeData{
-		name, "", time,
+		name, "", time, strconv.Itoa(utility.Port()),
 	}
 
 	//execute template
@@ -264,6 +234,16 @@ func timeHandler(response http.ResponseWriter, request *http.Request) {
 	if err != nil {
 		errorHandler(response, request, err)
 	}
+}
+
+//Handler for the web page.  One handler for all pages, URL.Path is used for sub pages.
+func setHandler(response http.ResponseWriter, request *http.Request) {
+
+}
+
+//Handler for the web page.  One handler for all pages, URL.Path is used for sub pages.
+func getHandler(response http.ResponseWriter, request *http.Request) {
+
 }
 
 //Function to handle errors

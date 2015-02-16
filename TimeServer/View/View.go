@@ -8,7 +8,7 @@ package view
 //import packages
 import (
 	"fmt"
-	"github.com/TimeServer/Utility"
+	"local/TimeServer/Utility"
 	"html/template"
 	"net/http"
 	"path/filepath"
@@ -18,7 +18,7 @@ import (
 var (
 	webPrint    = fmt.Fprintln
 	getTemplate = func(tmpl string) string {
-		return filepath.Join("templates", tmpl)
+		return filepath.Join("Templates", tmpl)
 	}
 	templates *template.Template
 )
@@ -27,6 +27,7 @@ type TimeData struct {
 	Name    string
 	Message string
 	Time    string
+	Port	string
 }
 
 func CreateSite() {

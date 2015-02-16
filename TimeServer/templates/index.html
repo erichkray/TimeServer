@@ -2,8 +2,8 @@
 	{{template "head"}}
 	<body>
 		{{template "logo"}}
-		{{template "menu"}}
+		{{template "menu" . }}
 		Greetings, {{.Name}}!
-		{{template "menu"}}
+		{{template "menu" . }}
 	</body>
 </html>

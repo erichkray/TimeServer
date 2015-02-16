@@ -2,12 +2,12 @@
 	{{template "head"}}
 	<body>
 		{{template "logo"}}
-		{{template "menu"}}
+		{{template "menu" . }}
 		<form action="login">
 			{{.Message}}
 			<input type="text" name="name" size="50">
 			<input type="submit">
 		</form>
-		{{template "menu"}}
+		{{template "menu" . }}
 	</body>
 </html>

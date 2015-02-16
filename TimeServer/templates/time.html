@@ -2,8 +2,8 @@
 	{{template "head"}}
 	<body>
 		{{template "logo"}}
-		{{template "menu"}}
+		{{template "menu" . }}
 		<p class="time">The time is now <span class="time">{{.Time}}</span>{{.Name}}.</p>
-		{{template "menu"}}
+		{{template "menu" . }}
 	</body>
 </html>
