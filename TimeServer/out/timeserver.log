@@ -1,0 +1,43 @@
+2015-02-04	[TRACE]	C:\Users\ErichRay\Documents\Git\CSS490\src\github.com\TimeServer\Utility\utility.go:github.com/TimeServer/Utility.WriteTrace:44	Starting Main
+2015-02-04	[INFO]	C:\Users\ErichRay\Documents\Git\CSS490\src\github.com\TimeServer\Utility\utility.go:github.com/TimeServer/Utility.WriteInfo:49	Version: 3
+2015-02-04	[TRACE]	C:\Users\ErichRay\Documents\Git\CSS490\src\github.com\TimeServer\Utility\utility.go:github.com/TimeServer/Utility.WriteTrace:44	Entering defaultHandler
+2015-02-04	[INFO]	C:\Users\ErichRay\Documents\Git\CSS490\src\github.com\TimeServer\Utility\utility.go:github.com/TimeServer/Utility.WriteInfo:49	URL = 
+2015-02-04	[INFO]	C:\Users\ErichRay\Documents\Git\CSS490\src\github.com\TimeServer\Utility\utility.go:github.com/TimeServer/Utility.WriteInfo:49	session_uuid: 05376492-a832-45c6-bf12-28d4b70d3869
+2015-02-04	[TRACE]	C:\Users\ErichRay\Documents\Git\CSS490\src\github.com\TimeServer\Utility\utility.go:github.com/TimeServer/Utility.WriteTrace:44	Entering loginHandler
+2015-02-04	[TRACE]	C:\Users\ErichRay\Documents\Git\CSS490\src\github.com\TimeServer\Utility\utility.go:github.com/TimeServer/Utility.WriteTrace:44	displaying login form
+2015-02-04	[TRACE]	C:\Users\ErichRay\Documents\Git\CSS490\src\github.com\TimeServer\Utility\utility.go:github.com/TimeServer/Utility.WriteTrace:45	Starting Main
+2015-02-04	[INFO]	C:\Users\ErichRay\Documents\Git\CSS490\src\github.com\TimeServer\Utility\utility.go:github.com/TimeServer/Utility.WriteInfo:50	Version: 3
+2015-02-04	[TRACE]	C:\Users\ErichRay\Documents\Git\CSS490\src\github.com\TimeServer\Utility\utility.go:github.com/TimeServer/Utility.WriteTrace:45	Entering defaultHandler
+2015-02-04	[INFO]	C:\Users\ErichRay\Documents\Git\CSS490\src\github.com\TimeServer\Utility\utility.go:github.com/TimeServer/Utility.WriteInfo:50	URL = 
+2015-02-04	[INFO]	C:\Users\ErichRay\Documents\Git\CSS490\src\github.com\TimeServer\Utility\utility.go:github.com/TimeServer/Utility.WriteInfo:50	session_uuid: 3d37480d-d9ab-4a19-bf1b-4dced3fcbd91
+2015-02-04	[TRACE]	C:\Users\ErichRay\Documents\Git\CSS490\src\github.com\TimeServer\Utility\utility.go:github.com/TimeServer/Utility.WriteTrace:45	Entering loginHandler
+2015-02-04	[TRACE]	C:\Users\ErichRay\Documents\Git\CSS490\src\github.com\TimeServer\Utility\utility.go:github.com/TimeServer/Utility.WriteTrace:45	displaying login form
+2015-02-04	[TRACE]	C:\Users\ErichRay\Documents\Git\CSS490\src\github.com\TimeServer\Utility\utility.go:github.com/TimeServer/Utility.WriteTrace:45	Entering loginHandler
+2015-02-04	[INFO]	C:\Users\ErichRay\Documents\Git\CSS490\src\github.com\TimeServer\Utility\utility.go:github.com/TimeServer/Utility.WriteInfo:50	len(name) != 0
+2015-02-04	[INFO]	C:\Users\ErichRay\Documents\Git\CSS490\src\github.com\TimeServer\Utility\utility.go:github.com/TimeServer/Utility.WriteInfo:50	Cookie set
+2015-02-04	[TRACE]	C:\Users\ErichRay\Documents\Git\CSS490\src\github.com\TimeServer\Utility\utility.go:github.com/TimeServer/Utility.WriteTrace:45	Entering defaultHandler
+2015-02-04	[INFO]	C:\Users\ErichRay\Documents\Git\CSS490\src\github.com\TimeServer\Utility\utility.go:github.com/TimeServer/Utility.WriteInfo:50	URL = index
+2015-02-04	[INFO]	C:\Users\ErichRay\Documents\Git\CSS490\src\github.com\TimeServer\Utility\utility.go:github.com/TimeServer/Utility.WriteInfo:50	session_uuid: 3f0ba470-b099-4caa-ab59-67ccb2ee69dc
+2015-02-04	[TRACE]	C:\Users\ErichRay\Documents\Git\CSS490\src\github.com\TimeServer\Utility\utility.go:github.com/TimeServer/Utility.WriteTrace:45	Displaying greeting
+2015-02-04	[TRACE]	C:\Users\ErichRay\Documents\Git\CSS490\src\github.com\TimeServer\Utility\utility.go:github.com/TimeServer/Utility.WriteTrace:45	Entering aboutHandler
+2015-02-04	[TRACE]	C:\Users\ErichRay\Documents\Git\CSS490\src\github.com\TimeServer\Utility\utility.go:github.com/TimeServer/Utility.WriteTrace:45	Entering logoutHandler
+2015-02-04	[TRACE]	C:\Users\ErichRay\Documents\Git\CSS490\src\github.com\TimeServer\Utility\utility.go:github.com/TimeServer/Utility.WriteTrace:45	Entering timeHandler
+2015-02-04	[TRACE]	C:\Users\ErichRay\Documents\Git\CSS490\src\github.com\TimeServer\Utility\utility.go:github.com/TimeServer/Utility.WriteTrace:45	Entering defaultHandler
+2015-02-04	[INFO]	C:\Users\ErichRay\Documents\Git\CSS490\src\github.com\TimeServer\Utility\utility.go:github.com/TimeServer/Utility.WriteInfo:50	URL = index/
+2015-02-04	[INFO]	C:\Users\ErichRay\Documents\Git\CSS490\src\github.com\TimeServer\Utility\utility.go:github.com/TimeServer/Utility.WriteInfo:50	session_uuid: 9a283617-252e-4a4b-b202-0cc67c8cdb19
+2015-02-04	[TRACE]	C:\Users\ErichRay\Documents\Git\CSS490\src\github.com\TimeServer\Utility\utility.go:github.com/TimeServer/Utility.WriteTrace:45	Entering loginHandler
+2015-02-04	[TRACE]	C:\Users\ErichRay\Documents\Git\CSS490\src\github.com\TimeServer\Utility\utility.go:github.com/TimeServer/Utility.WriteTrace:45	displaying login form
+2015-02-04	[TRACE]	C:\Users\ErichRay\Documents\Git\CSS490\src\github.com\TimeServer\Utility\utility.go:github.com/TimeServer/Utility.WriteTrace:45	Entering defaultHandler
+2015-02-04	[INFO]	C:\Users\ErichRay\Documents\Git\CSS490\src\github.com\TimeServer\Utility\utility.go:github.com/TimeServer/Utility.WriteInfo:50	URL = index/
+2015-02-04	[INFO]	C:\Users\ErichRay\Documents\Git\CSS490\src\github.com\TimeServer\Utility\utility.go:github.com/TimeServer/Utility.WriteInfo:50	session_uuid: cc18c64e-c32c-487e-b96b-814aa94789e6
+2015-02-04	[TRACE]	C:\Users\ErichRay\Documents\Git\CSS490\src\github.com\TimeServer\Utility\utility.go:github.com/TimeServer/Utility.WriteTrace:45	Entering loginHandler
+2015-02-04	[TRACE]	C:\Users\ErichRay\Documents\Git\CSS490\src\github.com\TimeServer\Utility\utility.go:github.com/TimeServer/Utility.WriteTrace:45	displaying login form
+2015-02-04	[TRACE]	C:\Users\ErichRay\Documents\Git\CSS490\src\github.com\TimeServer\Utility\utility.go:github.com/TimeServer/Utility.WriteTrace:45	Entering logoutHandler
+2015-02-04	[TRACE]	C:\Users\ErichRay\Documents\Git\CSS490\src\github.com\TimeServer\Utility\utility.go:github.com/TimeServer/Utility.WriteTrace:45	Entering aboutHandler
+2015-02-04	[TRACE]	C:\Users\ErichRay\Documents\Git\CSS490\src\github.com\TimeServer\Utility\utility.go:github.com/TimeServer/Utility.WriteTrace:45	Starting Main
+2015-02-04	[INFO]	C:\Users\ErichRay\Documents\Git\CSS490\src\github.com\TimeServer\Utility\utility.go:github.com/TimeServer/Utility.WriteInfo:50	Version: 3
+2015-02-04	[TRACE]	C:\Users\ErichRay\Documents\Git\CSS490\src\github.com\TimeServer\Utility\utility.go:github.com/TimeServer/Utility.WriteTrace:45	Entering defaultHandler
+2015-02-04	[INFO]	C:\Users\ErichRay\Documents\Git\CSS490\src\github.com\TimeServer\Utility\utility.go:github.com/TimeServer/Utility.WriteInfo:50	URL = 
+2015-02-04	[INFO]	C:\Users\ErichRay\Documents\Git\CSS490\src\github.com\TimeServer\Utility\utility.go:github.com/TimeServer/Utility.WriteInfo:50	session_uuid: 9b3d9162-20a9-4df4-bd2c-f8cbf4e17e67
+2015-02-04	[TRACE]	C:\Users\ErichRay\Documents\Git\CSS490\src\github.com\TimeServer\Utility\utility.go:github.com/TimeServer/Utility.WriteTrace:45	Entering loginHandler
+2015-02-04	[TRACE]	C:\Users\ErichRay\Documents\Git\CSS490\src\github.com\TimeServer\Utility\utility.go:github.com/TimeServer/Utility.WriteTrace:45	displaying login form
