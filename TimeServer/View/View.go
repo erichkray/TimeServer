@@ -1,6 +1,6 @@
 // Author: Erich Ray
 // Title: View
-// Version 3
+// Version 1
 // Created on 1/15/2015
 // Manages the views for TimeServer
 package view
@@ -18,7 +18,9 @@ import (
 var (
 	webPrint    = fmt.Fprintln
 	getTemplate = func(tmpl string) string {
-		return filepath.Join("Templates", tmpl)
+		tplPath := filepath.Join("Templates", tmpl)
+		utility.WriteTrace(tplPath)
+		return tplPath
 	}
 	templates *template.Template
 )

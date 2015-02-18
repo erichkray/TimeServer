@@ -9,23 +9,33 @@ package main
 import (
 	//"flag"
 	"fmt"
-	"local/TimeServer/TimeServer/Auth"
-	"local/TimeServer/Utility"
+	"local/TimeServer/Auth"
 	"local/TimeServer/TimeServer/View"
+	"local/TimeServer/Utility"
 	"net/http"
 	"net/url"
 	"os"
 	"strconv"
+	"sync"
 	"time"
 )
 
 const version = "Version: 4"
 
+var (
+	timeRequests TimeRequestCounter
+)
+
+type TimeRequestCounter struct{
+	sync.Mutex
+	requests int
+}
+
 //main function for Time Server
 func main() {
-	
+
 	//parse command flags
-	utility.ParseFlags(version)
+	utility.Init(version)
 
 	//build template tree
 	view.CreateSite()
@@ -35,7 +45,7 @@ func main() {
 
 	//print debug
 	utility.WriteTrace("Starting Main")
-	
+
 	//write version number to log
 	utility.WriteInfo(version)
 
@@ -45,8 +55,8 @@ func main() {
 	http.HandleFunc("/login/", loginHandler)
 	http.HandleFunc("/logout/", logoutHandler)
 	http.HandleFunc("/about/", aboutHandler)
-	http.HandleFunc("/set/", setHandler)
-	http.HandleFunc("/get/", getHandler)
+	//http.HandleFunc("/set/", setHandler)
+	//http.HandleFunc("/get/", getHandler)
 	http.Handle("/styles/", http.StripPrefix("/styles/", http.FileServer(http.Dir("styles/"))))
 
 	//set listen and serve for port, checking for error
@@ -94,7 +104,7 @@ func defaultHandler(response http.ResponseWriter, request *http.Request) {
 
 		name := auth.GetName(request)
 		if name == "" {
-			http.Redirect(response, request, "http://localhost:" + strconv.Itoa(utility.Port()) + "/login", http.StatusFound)
+			http.Redirect(response, request, "http://localhost:"+strconv.Itoa(utility.Port())+"/login", http.StatusFound)
 		} else {
 			//debug text
 			utility.WriteTrace("Displaying greeting")
@@ -128,7 +138,7 @@ func loginHandler(response http.ResponseWriter, request *http.Request) {
 	name := auth.GetName(request)
 	if name != "" {
 		//redirect to home page
-		http.Redirect(response, request, "http://localhost:" + strconv.Itoa(utility.Port()) + "/index", http.StatusFound)
+		http.Redirect(response, request, "http://localhost:"+strconv.Itoa(utility.Port())+"/index", http.StatusFound)
 	} else {
 
 		//parse query from URL
@@ -155,7 +165,7 @@ func loginHandler(response http.ResponseWriter, request *http.Request) {
 				utility.WriteInfo("Cookie set")
 
 				//redirect to home page
-				http.Redirect(response, request, "http://localhost:" + strconv.Itoa(utility.Port()) + "/index", http.StatusFound)
+				http.Redirect(response, request, "http://localhost:"+strconv.Itoa(utility.Port())+"/index", http.StatusFound)
 			}
 		} else {
 			//debug text
@@ -212,38 +222,45 @@ func logoutHandler(response http.ResponseWriter, request *http.Request) {
 func timeHandler(response http.ResponseWriter, request *http.Request) {
 	//debug text
 	utility.WriteTrace("Entering timeHandler")
+	utility.WriteTrace("Incrementing timeRequests")
+	
+	//increment counter
+	timeRequests.increment()
+	
+	//check if max number of concurrency has occurred
+	if utility.MaxInFlight() != 0 && timeRequests.requests > utility.MaxInFlight() {
+		http.Error(response, "Internal Server Error", 500)
+	} else {
+	
+		//get time and name
+		currentTime := time.Now().Format("3:04:05 PM")
+		name := auth.GetName(request)
 
-	//get time and name
-	time := time.Now().Format("3:04:05 PM")
-	name := auth.GetName(request)
+		//check if name was specified
+		if name != "" {
+			name = ", " + name
+		}
 
-	//check if name was specified
-	if name != "" {
-		name = ", " + name
+		//create data structure
+		data := view.TimeData{
+			name, "", currentTime, strconv.Itoa(utility.Port()),
+		}
+		
+		time.Sleep(utility.Delay() * time.Millisecond)
+
+		//execute template
+		err := view.ShowPage(response, "time", data)
+
+		//process error
+		if err != nil {
+			errorHandler(response, request, err)
+		}
 	}
-
-	//create data structure
-	data := view.TimeData{
-		name, "", time, strconv.Itoa(utility.Port()),
-	}
-
-	//execute template
-	err := view.ShowPage(response, "time", data)
-
-	//process error
-	if err != nil {
-		errorHandler(response, request, err)
-	}
-}
-
-//Handler for the web page.  One handler for all pages, URL.Path is used for sub pages.
-func setHandler(response http.ResponseWriter, request *http.Request) {
-
-}
-
-//Handler for the web page.  One handler for all pages, URL.Path is used for sub pages.
-func getHandler(response http.ResponseWriter, request *http.Request) {
-
+	
+	//debug text
+	utility.WriteTrace("Decrementing timeRequests")
+	//decrement counter
+	timeRequests.decrement()
 }
 
 //Function to handle errors
@@ -253,4 +270,18 @@ func errorHandler(response http.ResponseWriter, request *http.Request, err error
 
 	//debug text
 	utility.WriteCritical(err.Error())
+}
+
+//increment counter
+func (counter *TimeRequestCounter) increment() {
+	counter.Lock()
+	counter.requests++
+	counter.Unlock()
+}
+
+//decrement counter
+func (counter *TimeRequestCounter) decrement() {
+	counter.Lock()
+	counter.requests--
+	counter.Unlock()
 }
