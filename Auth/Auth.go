@@ -63,6 +63,17 @@ func removeCookie(response http.ResponseWriter, session_uuid string) {
 	http.SetCookie(response, &exp_cookie)
 }
 
+func createCookie(response http.ResponseWriter, session_uuid string, name string) *http.Cookie {
+	//make cookie
+	cookie := http.Cookie{Name: "user", Value: session_uuid, Path: "/"}
+
+	//set cookie
+	http.SetCookie(response, &cookie)
+	addNameToServer(name, session_uuid)
+
+	return &cookie
+}
+
 //add the name to the session map
 func addNameToServer(name string, session_uuid string) {
 
@@ -71,6 +82,7 @@ func addNameToServer(name string, session_uuid string) {
 
 	//RPC for name to set map
 	strStub := "/set?cookie=" + session_uuid + "&name=" + name
+	utility.WriteInfo("Sending: http://localhost:" + strconv.Itoa(utility.AuthPort()) + strStub)
 	resp, err := http.Get("http://localhost:" + strconv.Itoa(utility.AuthPort()) + strStub)
 
 	if err != nil {
@@ -92,6 +104,7 @@ func getNameFromServer(session_uuid string) string {
 
 	//RPC for name to get from map
 	strStub := "/get?cookie=" + session_uuid
+	utility.WriteInfo("Sending: http://localhost:" + strconv.Itoa(utility.AuthPort()) + strStub)
 	resp, err := http.Get("http://localhost:" + strconv.Itoa(utility.AuthPort()) + strStub)
 
 	defer resp.Body.Close()
@@ -101,25 +114,6 @@ func getNameFromServer(session_uuid string) string {
 	}
 	utility.WriteInfo(string(contents))
 	return string(contents)
-}
-
-//Abstraction for making Jar
-func makeJar() {
-	//make cookie map
-	jar.Lock()
-	jar.cookies = make(map[string]string)
-	jar.Unlock()
-}
-
-func createCookie(response http.ResponseWriter, session_uuid string, name string) *http.Cookie {
-	//make cookie
-	cookie := http.Cookie{Name: "user", Value: session_uuid, Path: "/"}
-
-	//set cookie
-	http.SetCookie(response, &cookie)
-	addNameToServer(name, session_uuid)
-
-	return &cookie
 }
 
 func GetName(request *http.Request) string {

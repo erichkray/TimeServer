@@ -55,8 +55,6 @@ func main() {
 	http.HandleFunc("/login/", loginHandler)
 	http.HandleFunc("/logout/", logoutHandler)
 	http.HandleFunc("/about/", aboutHandler)
-	//http.HandleFunc("/set/", setHandler)
-	//http.HandleFunc("/get/", getHandler)
 	http.Handle("/styles/", http.StripPrefix("/styles/", http.FileServer(http.Dir("styles/"))))
 
 	//set listen and serve for port, checking for error
