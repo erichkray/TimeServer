@@ -1,0 +1,9 @@
+<html>
+	{{template "head"}}
+	<body>
+		{{template "logo"}}
+		{{template "menu" . }}
+		<p class="time">The time is now <span class="time">{{.Time}}</span>{{.Name}}.</p>
+		{{template "menu" . }}
+	</body>
+</html>
