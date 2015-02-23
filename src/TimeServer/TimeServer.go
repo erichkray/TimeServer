@@ -9,9 +9,9 @@ package main
 import (
 	//"flag"
 	"fmt"
-	"local/Auth"
-	"local/View"
-	"local/Utility"
+	"Auth"
+	"View"
+	"Utility"
 	"net/http"
 	"net/url"
 	"os"

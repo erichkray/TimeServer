@@ -8,7 +8,7 @@ package main
 //import packages
 import (
 	"fmt"
-	"local/Utility"
+	"Utility"
 	"net/http"
 	//"net/url"
 	"os"

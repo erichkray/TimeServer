@@ -10,7 +10,7 @@ package auth
 import (
 	"errors"
 	"io/ioutil"
-	"local/Utility"
+	"Utility"
 	"net/http"
 	"strconv"
 	"sync"

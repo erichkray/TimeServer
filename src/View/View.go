@@ -8,7 +8,7 @@ package view
 //import packages
 import (
 	"fmt"
-	"local/Utility"
+	"Utility"
 	"html/template"
 	"net/http"
 	"path/filepath"
