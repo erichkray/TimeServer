@@ -79,11 +79,11 @@ func createCookie(response http.ResponseWriter, session_uuid string, name string
 func addNameToServer(name string, session_uuid string) {
 
 	//debug text
-	utility.WriteTrace("AddName(" + name + ", " + session_uuid + ")")
+	utility.WriteInfo("AddName(" + name + ", " + session_uuid + ")")
 
 	//RPC for name to set map
 	strStub := "/set?cookie=" + session_uuid + "&name=" + name
-	utility.WriteTrace("Sending: http://localhost:" + strconv.Itoa(utility.AuthPort()) + strStub)
+	utility.WriteInfo("Sending: http://localhost:" + strconv.Itoa(utility.AuthPort()) + strStub)
 	resp, err := http.Get("http://localhost:" + strconv.Itoa(utility.AuthPort()) + strStub)
 
 	if err != nil {
@@ -96,7 +96,7 @@ func addNameToServer(name string, session_uuid string) {
 		} else if len(contents) > 0 {
 			outStr := strings.TrimRight(string(contents), "\r\n")
 			outStr = strings.TrimRight(string(outStr), "\n")
-			utility.WriteTrace("Server Response: " + string(outStr))
+			utility.WriteInfo("Server Response: " + string(outStr))
 		}
 	}
 }
@@ -104,11 +104,11 @@ func addNameToServer(name string, session_uuid string) {
 //get the name from the session map
 func getNameFromServer(session_uuid string) string {
 	//debug text
-	utility.WriteTrace("GetName(" + session_uuid + ")")
+	utility.WriteInfo("GetName(" + session_uuid + ")")
 
 	//RPC for name to get from map
 	strStub := "/get?cookie=" + session_uuid
-	utility.WriteTrace("Sending: http://localhost:" + strconv.Itoa(utility.AuthPort()) + strStub)
+	utility.WriteInfo("Sending: http://localhost:" + strconv.Itoa(utility.AuthPort()) + strStub)
 	resp, err := http.Get("http://localhost:" + strconv.Itoa(utility.AuthPort()) + strStub)
 
 	var outStr string
@@ -119,19 +119,19 @@ func getNameFromServer(session_uuid string) string {
 	} else if len(contents) > 0 {
 			outStr = strings.TrimRight(string(contents), "\r\n")
 			outStr = strings.TrimRight(string(outStr), "\n")
-			utility.WriteTrace("Server Response: " + string(outStr))
+			utility.WriteInfo("Server Response: " + string(outStr))
 		}
 	return string(contents)
 }
 
 func GetName(request *http.Request) string {
-	utility.WriteTrace("Auth.GetName()")
-	utility.WriteTrace("session_uuid: " + session_uuid)
+	utility.WriteInfo("Auth.GetName()")
+	utility.WriteInfo("session_uuid: " + session_uuid)
 
 	//check session_uuid
 	if session_uuid == "" {
 		//return empty string, will trigger auth setting
-		utility.WriteTrace("session_uuid empty, returning")
+		utility.WriteInfo("session_uuid empty, returning")
 		return ""
 	} else {
 
@@ -140,7 +140,7 @@ func GetName(request *http.Request) string {
 
 		//validate cookie
 		if cookie == nil {
-			utility.WriteTrace("Cookie = nil")
+			utility.WriteInfo("Cookie = nil")
 			return ""
 		} else {
 
@@ -153,7 +153,7 @@ func GetName(request *http.Request) string {
 }
 
 func SetAuthInfo(response http.ResponseWriter, name string) error {
-	utility.WriteTrace("Auth.SetAuthInfo()")
+	utility.WriteInfo("Auth.SetAuthInfo()")
 
 	//set UUID
 	var err error

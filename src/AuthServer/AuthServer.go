@@ -44,7 +44,7 @@ func main() {
 	utility.WriteTrace("Starting Main")
 
 	//write version number to log
-	utility.WriteTrace(version)
+	utility.WriteInfo(version)
 
 	//create cookieJar
 	jar.cookies = make(map[string]string)
@@ -74,7 +74,7 @@ func defaultHandler(response http.ResponseWriter, request *http.Request) {
 	utility.WriteTrace("defaultHandler()")
 
 	//debug text
-	utility.WriteTrace("returning 404")
+	utility.WriteInfo("returning 404")
 	
 	//return 404
 	http.NotFound(response, request)
@@ -88,7 +88,7 @@ func getHandler(response http.ResponseWriter, request *http.Request) {
 	session_uuid := request.FormValue("cookie")
 	
 	//debug text
-	utility.WriteTrace("session_uuid: " + session_uuid)
+	utility.WriteInfo("session_uuid: " + session_uuid)
 
 	if session_uuid == "" {
 		utility.WriteCritical("session_uuid is empty")
@@ -112,17 +112,17 @@ func setHandler(response http.ResponseWriter, request *http.Request) {
 	//debug text
 	utility.WriteTrace("setHandler()")
 	
-	utility.WriteTrace("method: " + request.Method)
-	utility.WriteTrace("URL: " + request.URL.Path)
-	utility.WriteTrace("RawQuery: " + request.URL.RawQuery)
+	utility.WriteInfo("method: " + request.Method)
+	utility.WriteInfo("URL: " + request.URL.Path)
+	utility.WriteInfo("RawQuery: " + request.URL.RawQuery)
 
 	//get uuid and name
 	session_uuid := request.FormValue("cookie")
 	name := request.FormValue("name")
 	
 	//debug text
-	utility.WriteTrace("session_uuid: " + session_uuid)
-	utility.WriteTrace("name: " + name)
+	utility.WriteInfo("session_uuid: " + session_uuid)
+	utility.WriteInfo("name: " + name)
 
 	if session_uuid == "" {
 		utility.WriteCritical("session_uuid is empty")
