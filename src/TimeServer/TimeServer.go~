@@ -47,7 +47,7 @@ func main() {
 	utility.WriteTrace("Starting Main")
 
 	//write version number to log
-	utility.WriteTrace(version)
+	utility.WriteInfo(version)
 
 	//setup handler for web page requests
 	http.HandleFunc("/", defaultHandler)
@@ -95,7 +95,7 @@ func defaultHandler(response http.ResponseWriter, request *http.Request) {
 	//get URL.Path
 	url := request.URL.Path[1:]
 	//debug text
-	utility.WriteTrace("URL = " + url)
+	utility.WriteInfo("URL = " + url)
 
 	//check for time
 	if url == "/" || url == "index/" || url == "index" || url == "" {
@@ -151,7 +151,7 @@ func loginHandler(response http.ResponseWriter, request *http.Request) {
 		} else if len(name) != 0 { //Check if there is text to parse
 
 			//debug text
-			utility.WriteTrace("len(name) != 0")
+			utility.WriteInfo("len(name) != 0")
 
 			//create and set authentication information
 			err = auth.SetAuthInfo(response, name)
